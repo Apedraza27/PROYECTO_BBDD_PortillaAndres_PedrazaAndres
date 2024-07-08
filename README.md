@@ -187,6 +187,8 @@ Aqui se implementa todo lo realizado anteriormente, para asi tener un trabajo mu
 
 # Documento
 https://docs.google.com/document/d/1qJ2iaN583x2NbMxq_fvyzoR0Giul8fzR/edit
+# Notion
+https://juniper-haze-878.notion.site/Informe-Los-Ambientalistas-1dfeaac85c534c7d8d136c8719041511?pvs=4
 
 # Integrantes
 Andres Felipe Portilla
