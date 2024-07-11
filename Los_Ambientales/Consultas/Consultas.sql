@@ -1,4 +1,5 @@
 -- CONSULTAS
+USE LosAmbientales;
 
 -- 1. Numero de inventario de individuos por area
 select 

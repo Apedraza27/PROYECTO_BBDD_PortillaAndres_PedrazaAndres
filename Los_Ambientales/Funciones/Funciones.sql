@@ -1,119 +1,131 @@
+USE LosAmbientales;
+
 -- FUNCIONES
 
-### Función 1: Sueldos y Suma de Personal Parque
+-- funcion sueldos totales y sueldo de cada uno de personal parque 
 DELIMITER //
-
+drop function if exists obtener_sueldos_personal_parque;
 CREATE FUNCTION obtener_sueldos_personal_parque()
 RETURNS TEXT
+DETERMINISTIC
 BEGIN
     DECLARE resultado TEXT;
-
-    SELECT CONCAT('Sueldo: ', sueldo) AS detalle_sueldo
+    DECLARE sueldos TEXT;
+    
+    SELECT GROUP_CONCAT(CONCAT('Cedula: ',cedula ,' ','sueldo: ', sueldo) SEPARATOR '\n') INTO sueldos
     FROM personal_parque;
-
-    SELECT CONCAT('Suma Total de Sueldos: ', SUM(sueldo)) INTO resultado
+    
+    SELECT CONCAT('Sueldos del Personal Parque:\n', sueldos, '\nSuma Total de Sueldos: ', SUM(sueldo))
+    INTO resultado
     FROM personal_parque;
-
+    
     RETURN resultado;
 END //
 
 DELIMITER ;
+-- fin funcion sueldos totales y sueldo de cada uno de personal parque
+-- funcion personal gestion
 
-SELECT obtener_sueldos_personal_parque();
-
-### Función 2: Sueldos y Suma de Personal de Gestión
 DELIMITER //
-
+drop function if exists obtener_sueldos_personal_gestion;
 CREATE FUNCTION obtener_sueldos_personal_gestion()
 RETURNS TEXT
+DETERMINISTIC
 BEGIN
     DECLARE resultado TEXT;
-
-    SELECT CONCAT('Sueldo: ', pp.sueldo) AS detalle_sueldo
+    DECLARE detalle_sueldos TEXT;
+    
+    SELECT GROUP_CONCAT(CONCAT('Id: ', num_identificacion_de_entrada, ' ','sueldo: ', pp.sueldo) SEPARATOR '\n')
+    INTO detalle_sueldos
     FROM personal_de_gestion pg
     JOIN personal_parque pp ON pg.personal_parque_id = pp.id;
-
-    SELECT CONCAT('Suma Total de Sueldos: ', SUM(pp.sueldo)) INTO resultado
+    
+    SELECT CONCAT('Sueldos del Personal de Gestión:\n', detalle_sueldos, '\nSuma Total de Sueldos: ', SUM(pp.sueldo))
+    INTO resultado
     FROM personal_de_gestion pg
     JOIN personal_parque pp ON pg.personal_parque_id = pp.id;
-
+    
     RETURN resultado;
 END //
 
 DELIMITER ;
-
-SELECT obtener_sueldos_personal_gestion();
-
-### Función 3: Sueldos y Suma de Personal de Vigilancia
+-- fin funcion personal gestion
+-- sueldo personal investigacion
 DELIMITER //
-
-CREATE FUNCTION obtener_sueldos_personal_vigilancia()
-RETURNS TEXT
-BEGIN
-    DECLARE resultado TEXT;
-
-    SELECT CONCAT('Sueldo: ', pp.sueldo) AS detalle_sueldo
-    FROM personal_de_vigilancia pv
-    JOIN personal_parque pp ON pv.personal_parque_id = pp.id;
-
-    SELECT CONCAT('Suma Total de Sueldos: ', SUM(pp.sueldo)) INTO resultado
-    FROM personal_de_vigilancia pv
-    JOIN personal_parque pp ON pv.personal_parque_id = pp.id;
-
-    RETURN resultado;
-END //
-
-DELIMITER ;
-
-SELECT obtener_sueldos_personal_vigilancia();
-
-### Función 4: Sueldos y Suma de Personal de Investigación
-DELIMITER //
-
+drop function if exists obtener_sueldos_personal_investigacion;
 CREATE FUNCTION obtener_sueldos_personal_investigacion()
 RETURNS TEXT
+DETERMINISTIC
 BEGIN
     DECLARE resultado TEXT;
-
-    SELECT CONCAT('Sueldo: ', pp.sueldo) AS detalle_sueldo
+    DECLARE detalle_sueldos TEXT;
+    
+    SELECT GROUP_CONCAT(CONCAT('id:', personal_parque_id ,'  sueldo: ',pp.sueldo) SEPARATOR '\n')
+    INTO detalle_sueldos
     FROM personal_investigador pi
     JOIN personal_parque pp ON pi.personal_parque_id = pp.id;
-
-    SELECT CONCAT('Suma Total de Sueldos: ', SUM(pp.sueldo)) INTO resultado
+    
+    SELECT CONCAT('Sueldos del Personal de Investigación:\n', detalle_sueldos, '\nSuma Total de Sueldos: ', SUM(pp.sueldo))
+    INTO resultado
     FROM personal_investigador pi
     JOIN personal_parque pp ON pi.personal_parque_id = pp.id;
-
+    
     RETURN resultado;
 END //
 
 DELIMITER ;
-
-SELECT obtener_sueldos_personal_investigacion();
-
-### Función 5: Sueldos y Suma de Personal de Conservación
+-- fin funcion personal investigacion
+-- sueldo personal investigacion
 DELIMITER //
+drop function if exists obtener_sueldos_personal_investigacion;
+CREATE FUNCTION obtener_sueldos_personal_investigacion()
+RETURNS TEXT
+DETERMINISTIC
+BEGIN
+    DECLARE resultado TEXT;
+    DECLARE detalle_sueldos TEXT;
+    
+    SELECT GROUP_CONCAT(CONCAT('id:', personal_parque_id ,'  sueldo: ',pp.sueldo) SEPARATOR '\n')
+    INTO detalle_sueldos
+    FROM personal_investigador pi
+    JOIN personal_parque pp ON pi.personal_parque_id = pp.id;
+    
+    SELECT CONCAT('Sueldos del Personal de Investigación:\n', detalle_sueldos, '\nSuma Total de Sueldos: ', SUM(pp.sueldo))
+    INTO resultado
+    FROM personal_investigador pi
+    JOIN personal_parque pp ON pi.personal_parque_id = pp.id;
+    
+    RETURN resultado;
+END //
 
+DELIMITER ;
+-- fin funcion personal investigacion
+-- sueldo personal  conservacion
+
+DELIMITER //
+drop function if exists obtener_sueldos_personal_conservacion;
 CREATE FUNCTION obtener_sueldos_personal_conservacion()
 RETURNS TEXT
+deterministic 
 BEGIN
     DECLARE resultado TEXT;
-
-    SELECT CONCAT('Sueldo: ', pp.sueldo) AS detalle_sueldo
+    DECLARE detalle_sueldos TEXT;
+    
+    SELECT GROUP_CONCAT(CONCAT('id:', personal_parque_id ,'  sueldo: ', pp.sueldo) SEPARATOR '\n')
+    INTO detalle_sueldos
     FROM personal_de_conservacion pc
     JOIN personal_parque pp ON pc.personal_parque_id = pp.id;
-
-    SELECT CONCAT('Suma Total de Sueldos: ', SUM(pp.sueldo)) INTO resultado
+    
+    SELECT CONCAT('Sueldos del Personal de Conservación:\n', detalle_sueldos, '\nSuma Total de Sueldos: ', SUM(pp.sueldo))
+    INTO resultado
     FROM personal_de_conservacion pc
     JOIN personal_parque pp ON pc.personal_parque_id = pp.id;
-
+    
     RETURN resultado;
 END //
 
 DELIMITER ;
-
-SELECT obtener_sueldos_personal_conservacion();
-
-### Función 6
+-- fin funcion personal conservacion
 DELIMITER //
 
 CREATE FUNCTION calcular_costo_total() RETURNS DECIMAL(12, 2)
@@ -137,5 +149,10 @@ BEGIN
 END //
 
 DELIMITER ;
-
+-- fin funcion costo total
+SELECT obtener_sueldos_personal_parque();
+SELECT obtener_sueldos_personal_gestion();
+SELECT obtener_sueldos_personal_vigilancia();
+SELECT obtener_sueldos_personal_investigacion();
+SELECT obtener_sueldos_personal_conservacion();
 SELECT calcular_costo_total();

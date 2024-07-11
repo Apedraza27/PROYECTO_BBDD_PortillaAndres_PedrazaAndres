@@ -1,6 +1,7 @@
+USE LosAmbientales;
+
 -- PROCEDIMIENTOS
 
--- Eliminar el procedimiento si existe previamente
 DROP PROCEDURE IF EXISTS gestionar_alojamiento;
 
 -- Crear el procedimiento gestionar_alojamiento
@@ -41,7 +42,6 @@ DELIMITER ;
 
 
 
--- Eliminar el procedimiento si existe previamente
 DROP PROCEDURE IF EXISTS registrar_entrada;
 
 -- Crear el procedimiento registrar_entrada

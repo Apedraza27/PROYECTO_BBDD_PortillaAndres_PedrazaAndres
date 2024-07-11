@@ -1,3 +1,4 @@
+
 USE LosAmbientales;
 
 INSERT INTO departamento (region, departamentos) VALUES ('Región Andina', 'Antioquia, Boyacá, Caldas, Cundinamarca, Huila, Norte de Santander, Quindío, Risaralda, Santander, Tolima');
