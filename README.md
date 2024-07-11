@@ -169,24 +169,63 @@ El modelo en UML WorkBench es una representación detallada y técnica del siste
 ---
  # Implementacion de Codigo
 Aqui se implementa todo lo realizado anteriormente, para asi tener un trabajo mucho mas organizado y limpio, que maneje una ocurrencia correcta para evitar de esta manera los posibles errores al diseñar mal la base de datos
+Para llenar los últimos apartados basados en la estructura que has planteado:
+
+---
+
 ## Tablas
+
+En esta sección se definen las tablas principales del modelo lógico, que representan las entidades del sistema junto con sus atributos. Cada tabla está diseñada para cumplir con las normas de normalización, asegurando la integridad y eficiencia de los datos.
+
 ## Data
+
+Aquí se detalla la población inicial de las tablas con datos de ejemplo para ilustrar su estructura y funcionalidad.
+
 ## Consultas
+
+Se incluyen las consultas SQL que permiten extraer información específica de las tablas, adaptadas para cumplir con los requisitos del sistema.
+
 ## Funciones
+
+Las funciones definidas aquí son scripts SQL que realizan operaciones específicas sobre los datos almacenados, optimizando su manejo y procesamiento.
+
 ## Procedimientos
+
+Los procedimientos almacenados son conjuntos de instrucciones SQL que se ejecutan de manera secuencial para llevar a cabo tareas complejas y repetitivas en la base de datos.
+
 ## Seguridad y Permisos
+
+Se establecen los controles de acceso y permisos para asegurar que solo los usuarios autorizados puedan acceder y manipular la información de la base de datos.
+
 ## Transacciones
 
+Aquí se definen las transacciones SQL que agrupan varias operaciones en una unidad lógica de trabajo, asegurando la consistencia de los datos y la integridad de la base de datos en entornos concurrentes.
+
+---
 # Tecnologias y herramientas 
+
 ## MySqL WorkBench
+
+MySQL Workbench es una herramienta de diseño y modelado visual de bases de datos MySQL. Permite crear y gestionar esquemas de bases de datos, diseñar tablas, ejecutar consultas SQL y administrar el servidor MySQL.
+
 ## Draw.io
+
+Draw.io es una herramienta en línea para crear diagramas de manera intuitiva y eficiente. Se utiliza para diseñar diagramas de entidad-relación (ER), diagramas UML, diagramas de flujo y otros tipos de diagramas necesarios para visualizar y comunicar el diseño de la base de datos.
+
 ## Notion
+
+Notion es una herramienta colaborativa que permite la creación de documentos, bases de datos, notas y gestión de proyectos. Se uso para mantener una documentación detallada del diseño de la base de datos.
+
 ## ChatGpt
 
+ChatGPT se utilizó para hacer inserciones y revisiones de código SQL  relacionadas con el proyecto.
+
+---
 
 
-# Documento
-https://docs.google.com/document/d/1qJ2iaN583x2NbMxq_fvyzoR0Giul8fzR/edit
+
+
+
 # Notion
 https://juniper-haze-878.notion.site/Informe-Los-Ambientalistas-1dfeaac85c534c7d8d136c8719041511?pvs=4
 
