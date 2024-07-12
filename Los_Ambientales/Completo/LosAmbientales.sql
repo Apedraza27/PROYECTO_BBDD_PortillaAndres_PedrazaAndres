@@ -667,16 +667,17 @@ inner join
 group by 
     area2.nombre;
 
--- 2. Las consultas se refieren al número de parques existentes en cada dpto
-select 
-	departamento.departamentos,
-    parque_natural.nombre
-from 
-	departamento
-inner join 
-	parque_natural on parque_natural.departamento_id = departamento.id;
-    
-    
+-- 2. La consulta se refieren al número de parques existentes en cada dpto
+
+SELECT
+    departamento.departamentos,
+    COUNT(*)
+FROM
+    departamento
+INNER JOIN
+    parque_natural ON parque_natural.departamento_id = departamento.id
+GROUP BY
+    departamento.departamentos;    
 -- 3. La superficie total de cada parque
 select 
 	nombre,
@@ -720,8 +721,8 @@ USE LosAmbientales;
 -- FUNCIONES
 
 -- funcion sueldos totales y sueldo de cada uno de personal parque 
-DELIMITER //
 drop function if exists obtener_sueldos_personal_parque;
+DELIMITER //
 CREATE FUNCTION obtener_sueldos_personal_parque()
 RETURNS TEXT
 DETERMINISTIC
@@ -742,9 +743,8 @@ END //
 DELIMITER ;
 -- fin funcion sueldos totales y sueldo de cada uno de personal parque
 -- funcion personal gestion
-
-DELIMITER //
 drop function if exists obtener_sueldos_personal_gestion;
+DELIMITER //
 CREATE FUNCTION obtener_sueldos_personal_gestion()
 RETURNS TEXT
 DETERMINISTIC
@@ -768,8 +768,8 @@ END //
 DELIMITER ;
 -- fin funcion personal gestion
 -- sueldo personal investigacion
-DELIMITER //
 drop function if exists obtener_sueldos_personal_investigacion;
+DELIMITER //
 CREATE FUNCTION obtener_sueldos_personal_investigacion()
 RETURNS TEXT
 DETERMINISTIC
@@ -793,8 +793,8 @@ END //
 DELIMITER ;
 -- fin funcion personal investigacion
 -- sueldo personal investigacion
-DELIMITER //
 drop function if exists obtener_sueldos_personal_investigacion;
+DELIMITER //
 CREATE FUNCTION obtener_sueldos_personal_investigacion()
 RETURNS TEXT
 DETERMINISTIC
@@ -818,9 +818,8 @@ END //
 DELIMITER ;
 -- fin funcion personal investigacion
 -- sueldo personal  conservacion
-
-DELIMITER //
 drop function if exists obtener_sueldos_personal_conservacion;
+DELIMITER //
 CREATE FUNCTION obtener_sueldos_personal_conservacion()
 RETURNS TEXT
 deterministic 
@@ -843,6 +842,7 @@ END //
 
 DELIMITER ;
 -- fin funcion personal conservacion
+Drop function if exists calcular_costo_total;
 DELIMITER //
 
 CREATE FUNCTION calcular_costo_total() RETURNS DECIMAL(12, 2)
@@ -989,17 +989,58 @@ DELIMITER ;
 
 SET GLOBAL event_scheduler = ON;
 
--- Eliminar el evento si existe previamente
-DROP EVENT IF EXISTS eliminar_datos_visitantes;
-
 -- Crear el evento para eliminar los datos de visitantes el 1 de agosto
+DROP EVENT IF EXISTS eliminar_datos_visitantes;
 CREATE EVENT eliminar_datos_visitantes
 ON SCHEDULE
     AT '2024-08-01 00:00:00'
 DO
     DELETE FROM visitante;
     
-    
+-- copias de seguridad
+
+--  Diaria
+DROP EVENT IF EXISTS daily_backup;
+DELIMITER //
+CREATE EVENT daily_backup
+ON SCHEDULE EVERY 1 DAY
+STARTS CURRENT_TIMESTAMP + INTERVAL 1 DAY
+DO
+BEGIN
+    DECLARE backup_cmd VARCHAR(255);
+    SET backup_cmd = CONCAT('mysqldump -u administrador -padministrador LosAmbientales > /path/to/backup/daily_backup_', DATE_FORMAT(NOW(), '%Y_%m_%d'), '.sql');
+    CALL sys_exec(backup_cmd);
+END //
+DELIMITER ;
+
+--  Semanal
+DROP EVENT IF EXISTS weekly_backup;
+DELIMITER //
+CREATE EVENT weekly_backup
+ON SCHEDULE EVERY 1 WEEK
+STARTS CURRENT_TIMESTAMP + INTERVAL 1 WEEK
+DO
+BEGIN
+    DECLARE backup_cmd VARCHAR(255);
+    SET backup_cmd = CONCAT('mysqldump -u administrador -padministrador LosAmbientales > /path/to/backup/weekly_backup_', DATE_FORMAT(NOW(), '%Y_%m_%d'), '.sql');
+    CALL sys_exec(backup_cmd);
+END //
+DELIMITER ;
+
+--  Mensual
+DROP EVENT IF EXISTS monthly_backup;
+DELIMITER //
+CREATE EVENT monthly_backup
+ON SCHEDULE EVERY 1 MONTH
+STARTS CURRENT_TIMESTAMP + INTERVAL 1 MONTH
+DO
+BEGIN
+    DECLARE backup_cmd VARCHAR(255);
+    SET backup_cmd = CONCAT('mysqldump -u administrador -padministrador LosAmbientales > /path/to/backup/monthly_backup_', DATE_FORMAT(NOW(), '%Y_%m'), '.sql');
+    CALL sys_exec(backup_cmd);
+END //
+DELIMITER ;
+
     
 
 -- PERMISOS

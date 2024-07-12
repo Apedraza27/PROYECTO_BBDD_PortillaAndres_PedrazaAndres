@@ -3,8 +3,8 @@ USE LosAmbientales;
 -- FUNCIONES
 
 -- funcion sueldos totales y sueldo de cada uno de personal parque 
-DELIMITER //
 drop function if exists obtener_sueldos_personal_parque;
+DELIMITER //
 CREATE FUNCTION obtener_sueldos_personal_parque()
 RETURNS TEXT
 DETERMINISTIC
@@ -26,8 +26,8 @@ DELIMITER ;
 -- fin funcion sueldos totales y sueldo de cada uno de personal parque
 -- funcion personal gestion
 
-DELIMITER //
 drop function if exists obtener_sueldos_personal_gestion;
+DELIMITER //
 CREATE FUNCTION obtener_sueldos_personal_gestion()
 RETURNS TEXT
 DETERMINISTIC
@@ -51,8 +51,8 @@ END //
 DELIMITER ;
 -- fin funcion personal gestion
 -- sueldo personal investigacion
-DELIMITER //
 drop function if exists obtener_sueldos_personal_investigacion;
+DELIMITER //
 CREATE FUNCTION obtener_sueldos_personal_investigacion()
 RETURNS TEXT
 DETERMINISTIC
@@ -76,8 +76,8 @@ END //
 DELIMITER ;
 -- fin funcion personal investigacion
 -- sueldo personal investigacion
-DELIMITER //
 drop function if exists obtener_sueldos_personal_investigacion;
+DELIMITER //
 CREATE FUNCTION obtener_sueldos_personal_investigacion()
 RETURNS TEXT
 DETERMINISTIC
@@ -101,9 +101,8 @@ END //
 DELIMITER ;
 -- fin funcion personal investigacion
 -- sueldo personal  conservacion
-
-DELIMITER //
 drop function if exists obtener_sueldos_personal_conservacion;
+DELIMITER //
 CREATE FUNCTION obtener_sueldos_personal_conservacion()
 RETURNS TEXT
 deterministic 
